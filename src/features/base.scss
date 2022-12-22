@@ -1,0 +1,305 @@
+/* Fontes */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
+@import url("./formElements.scss");
+
+body {
+  --corGraduacao100: #ebebff;
+  --corGraduacao200: #d6d6ff;
+  --corGraduacao300: #64649a;
+  --corGraduacao400: #5351af;
+  --corGraduacao500: #403f82;
+  --corGraduacao600: #36356e;
+  --corPosGraduacao100: #fff6eb;
+  --corPosGraduacao200: #ffedd6;
+  --corPosGraduacao300: #a59587;
+  --corPosGraduacao400: #d58700;
+  --corPosGraduacao500: #7b5029;
+  --corPosGraduacao600: #5c3c1f;
+  --corExtensao100: #ffebeb;
+  --corExtensao200: #ffd6d6;
+  --corExtensao300: #c66969;
+  --corExtensao400: #910000;
+  --corExtensao500: #b45555;
+  --corExtensao600: #660000;
+  --corEscolaNegocios100: #ebf3ff;
+  --corEscolaNegocios200: #d6ebff;
+  --corEscolaNegocios300: #7bb4e8;
+  --corEscolaNegocios400: #006fd0;
+  --corEscolaNegocios500: #4e94d1;
+  --corEscolaNegocios600: #00417a;
+  --corPrimaria100: var(--corGraduacao100);
+  --corPrimaria200: var(--corGraduacao200);
+  --corPrimaria300: var(--corGraduacao300);
+  --corPrimaria400: var(--corGraduacao400);
+  --corPrimaria500: var(--corGraduacao500);
+  --corPrimaria600: var(--corGraduacao600);
+  --corPreto: #000000;
+  --corPreto900: #1f1f1f;
+  --corBranco: #ffffff;
+  --corBranco100: #ebebeb;
+  --corBranco200: #d1d1d6;
+  --corAmarelo: #fed500;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+}
+
+@mixin icon($size) {
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: $size;
+}
+
+@mixin icon-url($link) {
+  background-image: url($link);
+}
+
+@mixin flex($dir) {
+  display: flex;
+  flex-direction: $dir;
+}
+
+h2 {
+  font-weight: 300;
+}
+
+.logos {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--corGraduacao300);
+  padding-bottom: 10rem;
+
+  &::after {
+    content: " ";
+    background-image: url("../assets/curva-dir.svg");
+    background-size: 240px;
+    background-repeat: no-repeat;
+    width: 240px;
+    transform: translateX(-2px);
+  }
+
+  .images {
+    background-color: var(--corGraduacao500);
+    padding: 4rem;
+    display: inline-flex;
+    flex-direction: row;
+    flex-shrink: 0;
+
+    .facIndustria {
+      width: 100%;
+      max-width: 180px;
+    }
+
+    .sisFiep {
+      width: 100%;
+      max-width: 150px;
+      margin-left: 2rem;
+    }
+  }
+}
+
+.mainContainer {
+  width: calc(100vw - 20px);
+  max-width: 1280px;
+  min-height: 640px;
+  background-color: #f8f8f8;
+  margin: -8rem auto 40px auto;
+  border-radius: 18px;
+  box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .pane {
+    padding: 2rem;
+  }
+
+  .firstPane {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--corGraduacao500);
+    color: #fff;
+    user-select: none;
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .userIcon {
+        width: 48px;
+        height: 48px;
+        border-radius: 6px;
+        margin-right: 1rem;
+        @include icon(32px);
+        background-color: white;
+        background-image: url("../assets/icons/user.svg");
+      }
+
+      .userIcon.admin {
+        background-image: url("../assets/icons/webAdmin.svg");
+      }
+
+      .userName {
+        font-size: 1.25rem;
+      }
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+
+      a {
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        color: white;
+        border-radius: 6px;
+        background-color: var(--corGraduacao500);
+        transition: filter 50ms ease-in;
+        margin-bottom: 0.25rem;
+      }
+
+      a:hover {
+        filter: brightness(1.05);
+      }
+
+      a.active {
+        background-color: var(--corGraduacao600);
+      }
+    }
+  }
+
+  .secondPane {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    iframe {
+      width: 100%;
+      flex-grow: 1;
+      border: none;
+    }
+  }
+}
+
+.indexPage {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.socialMediaLinks {
+  @include flex(row);
+  justify-content: center;
+  margin-bottom: 40px;
+
+  .icon {
+    $iconSize: 32px;
+    @include icon($iconSize);
+    width: $iconSize;
+    height: $iconSize;
+    display: inline-block;
+    font-size: 1px;
+    text-decoration: none;
+    color: transparent;
+    cursor: pointer;
+    opacity: 0.3;
+    margin: 0 4px;
+  }
+
+  .icon:hover {
+    opacity: 0.5;
+  }
+
+  .linkedin {
+    background-image: url("../assets/icons8-linkedin.svg");
+  }
+
+  .facebook {
+    background-image: url("../assets/icons8-facebook.svg");
+  }
+
+  .instagram {
+    background-image: url("../assets/icons8-instagram.svg");
+  }
+
+  .youtube {
+    background-image: url("../assets/icons8-youtube.svg");
+  }
+}
+
+.bottomLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 40px;
+
+  a {
+    color: #646464;
+    font-size: 0.6rem;
+  }
+
+  a:not(:first-child) {
+    margin-left: 1em;
+  }
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+
+  .ReactModal__Content {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 50vh;
+    padding: 2rem;
+    border-radius: 18px;
+
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+@media screen and (max-width: 720px) {
+  .logos {
+    &::after {
+      display: none;
+    }
+
+    .images {
+      width: 100%;
+      justify-content: center;
+      padding: 4rem 0;
+
+      img {
+        max-width: 30vw !important;
+      }
+    }
+  }
+
+  .mainContainer {
+    flex-direction: column;
+
+    .firstPane {
+      width: unset;
+      max-width: unset;
+    }
+  }
+}

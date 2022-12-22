@@ -1,0 +1,18 @@
+.dataTable {
+  font-size: 0.8rem;
+  border-collapse: collapse;
+}
+
+.dataTable th {
+  text-align: left;
+  padding: 0.25em;
+}
+
+.dataTable td {
+  text-align: left;
+  padding: 0.25em;
+}
+
+.dataTable tr:nth-child(even) {
+  background-color: #f0f0f0;
+}

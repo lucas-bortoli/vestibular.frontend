@@ -1,0 +1,44 @@
+@mixin inputIcon($image, $size: 16px) {
+  background-size: $size;
+  background-image: $image;
+  background-repeat: no-repeat;
+  background-position: center right calc($size / 2);
+}
+
+.registerForm {
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+
+    label {
+      font-size: 0.8rem;
+    }
+  }
+
+  .registerButton {
+    margin-top: 0.8rem;
+    color: white;
+    background-color: #ea8962;
+    width: 100%;
+  }
+
+  .changeForm {
+    width: 100%;
+    background-color: #403f82;
+    color: white;
+    border: 1px solid white;
+    @include inputIcon(url("../../assets/icons/arrowForward_light.svg"));
+  }
+
+  .changeForm.back {
+    @include inputIcon(url("../../assets/icons/arrowBack_light.svg"));
+    background-position: center left calc(16px / 2);
+  }
+
+  hr {
+    margin: 1rem 0;
+    background-color: #fff;
+    opacity: 0.2;
+  }
+}

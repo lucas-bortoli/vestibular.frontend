@@ -1,0 +1,43 @@
+.indexPage {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 100%;
+
+  .pane {
+    padding: 2rem;
+  }
+
+  .firstPane {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--corGraduacao500);
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .secondPane {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    iframe {
+      width: 100%;
+      flex-grow: 1;
+      border: none;
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .indexPage {
+    flex-direction: column;
+
+    .firstPane {
+      width: unset;
+      max-width: unset;
+    }
+  }
+}

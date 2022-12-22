@@ -1,0 +1,10 @@
+.perfilInfo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  .info {
+    font-size: 0.8rem;
+    color: #646464;
+  }
+}

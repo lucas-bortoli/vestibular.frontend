@@ -1,0 +1,67 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  background-color: #f8f8f8;
+  user-select: none;
+}
+
+.loginWrapper {
+  max-width: 320px;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.field input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.buttonBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.loginButton {
+  background-color: #403f82;
+  color: white;
+}
+
+.backButton {
+  background-color: #bdbdbd;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title::before {
+  content: " ";
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  margin-right: 16px;
+  background-image: url("../../../assets/icons/lock.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 48px;
+}
+
+.loginStatus {
+  font-size: 0.8rem;
+}
+
+.loginError {
+  color: red;
+  font-size: 0.8rem;
+}

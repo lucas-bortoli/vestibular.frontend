@@ -1,0 +1,61 @@
+@mixin inputIcon($image, $size: 16px) {
+  background-size: $size;
+  background-image: $image;
+  background-repeat: no-repeat;
+  background-position: center right calc($size / 2);
+}
+
+input,
+select {
+  background-color: #fff;
+  font-family: inherit;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  outline: none;
+  border-bottom: 2px solid #aaa;
+  appearance: none;
+  position: relative;
+  transition: background-color 50ms ease-in;
+
+  &:hover {
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #777;
+  }
+
+  &:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #666;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+  }
+}
+
+select {
+  @include inputIcon(url("../assets/icons/dropDown.svg"));
+}
+
+input[type="date"] {
+  @include inputIcon(url("../assets/icons/calendar.svg"));
+}
+
+button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: inherit;
+  border: none;
+  transition: filter 100ms ease-in-out;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:active {
+  filter: brightness(0.9);
+}
