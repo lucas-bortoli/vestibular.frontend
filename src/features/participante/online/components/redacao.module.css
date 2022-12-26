@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page {
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+  width: calc(1ch * 50);
+}
+
+.page textarea {
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: 16px;
+  width: 100%;
+  height: calc(1em * 27);
+  background-color: white;
+  border: none;
+  resize: none;
+  outline: none;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: calc(1ch * 50);
+}

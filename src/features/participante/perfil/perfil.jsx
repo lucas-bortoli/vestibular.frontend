@@ -1,38 +1,55 @@
+import { cpf as cpfValidator } from "cpf-cnpj-validator";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useGetCursosQuery } from "../../../api/apiSlice";
+import { format } from "../../../utils";
 import "./perfil.scss";
 
 const ParticipantePerfilPage = () => {
+  const dadosParticipante = useSelector((state) => state.participante.dados);
+
+  const { data: cursosData } = useGetCursosQuery();
+
   return (
     <>
       <h2>Perfil</h2>
       <div className="perfilInfo">
         <span className="info">Nome completo</span>
-        <span className="value">Lucas Vinicius de Bortoli Santos</span>
+        <span className="value">{dadosParticipante.nome}</span>
       </div>
       <div className="perfilInfo">
         <span className="info">Data de nascimento</span>
-        <span className="value">12/03/2003</span>
+        <span className="value">
+          {dadosParticipante.dataNascimento.split("-").reverse().join("/")}
+        </span>
       </div>
       <div className="perfilInfo">
         <span className="info">Documento</span>
-        <span className="value">076.637.283-94</span>
+        <span className="value">{cpfValidator.format(dadosParticipante.cpf)}</span>
       </div>
       <div className="perfilInfo">
         <span className="info">E-mail</span>
-        <span className="value">lucasbortolisantos@gmail.com</span>
+        <span className="value">{dadosParticipante.email}</span>
       </div>
       <div className="perfilInfo">
         <span className="info">Telefone</span>
-        <span className="value">(43) 99927-1022</span>
+        <span className="value">{format("(dd) ddddd-dddd", dadosParticipante.telefone)}</span>
       </div>
       <div className="perfilInfo">
         <span className="info">Curso selecionado</span>
         <span className="value">
-          Engenharia de Software (Londrina)
+          {cursosData &&
+            (() => {
+              let curso = Object.values(cursosData)
+                .flat()
+                .find((c) => c.cursoId === dadosParticipante.cursoId);
+
+              return `${curso.cursoNome} (${curso.campusNome})`;
+            })()}
           <br />
-          Prova presencial - concurso de bolsas
+          {dadosParticipante.provaOnline ? "Prova online" : "Prova presencial - concurso de bolsas"}
         </span>
       </div>
-      <p>Caso as informações acimas estejam incorretas, entre em contato conosco.</p>
     </>
   );
 };
