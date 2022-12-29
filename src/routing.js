@@ -9,6 +9,7 @@ import RestritoPageBase from "./features/restrito/restrito.jsx";
 import RestritoLoginPage from "./features/restrito/login/login.jsx";
 import RestritoCandidatosPage from "./features/restrito/candidatos/candidatos.jsx";
 import ProvaOnlineSubpage from "./features/participante/online/provaOnline.jsx";
+import RestritoNotasPage from "./features/restrito/notas/notas.jsx";
 
 export const AppRouting = () => {
   return (
@@ -23,6 +24,7 @@ export const AppRouting = () => {
           <Route path="restrito" element={<RestritoPageBase />}>
             <Route path="login" element={<RestritoLoginPage />} />
             <Route path="candidatos" element={<RestritoCandidatosPage />} />
+            <Route path="notas" element={<RestritoNotasPage />} />
           </Route>
         </Route>
       </Routes>

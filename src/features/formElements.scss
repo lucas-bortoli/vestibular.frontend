@@ -18,14 +18,18 @@ select {
   position: relative;
   transition: background-color 50ms ease-in;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: #f0f0f0;
     border-bottom: 2px solid #777;
   }
 
-  &:focus {
+  &:not(:disabled):focus {
     background-color: #fff;
     border-bottom: 2px solid #666;
+  }
+
+  &:disabled {
+    background-color: #f0f0f0;
   }
 
   &::-webkit-inner-spin-button,
@@ -38,6 +42,7 @@ select {
 
 select {
   @include inputIcon(url("../assets/icons/dropDown.svg"));
+  padding-right: 32px;
 }
 
 input[type="date"] {

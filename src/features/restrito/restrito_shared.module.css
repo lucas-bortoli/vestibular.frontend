@@ -1,6 +1,7 @@
 .dataTable {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   border-collapse: collapse;
+  width: 100%;
 }
 
 .dataTable th {
@@ -13,6 +14,33 @@
   padding: 0.25em;
 }
 
+.dataTable tr {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
 .dataTable tr:nth-child(even) {
-  background-color: #f0f0f0;
+  background-color: #f4f4f4;
+}
+
+.dataTable td:hover {
+  background-color: #ececec;
+}
+
+.icon {
+  --icon-size: 16px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: var(--icon-size);
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.icon.xl {
+  --icon-size: 32px;
+}
+
+.exportTable {
+  background-image: url("../../assets/calc128.svg");
 }
