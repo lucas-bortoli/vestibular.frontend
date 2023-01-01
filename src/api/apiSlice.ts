@@ -1,21 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import baseUrl from "./baseUrl.js";
+import { CursoCampusJoin } from "./types.js";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ["cursos", "auth", "participantes"],
+  tagTypes: ["cursos", "campus", "auth", "notas", "participantes"],
   endpoints: (builder) => ({
     /**
      * Busca uma lista de cursos.
      */
-    getCursos: builder.query({
+    getCursos: builder.query<{ [key: string]: CursoCampusJoin[] }, void>({
       query: () => "/curso/list",
       providesTags: ["cursos"],
       transformResponse: (response) => {
         const groups = {};
 
-        for (const curso of response) {
+        for (const curso of response as CursoCampusJoin[]) {
           if (!groups[curso.campusNome]) {
             groups[curso.campusNome] = [];
           }
@@ -25,6 +26,11 @@ export const apiSlice = createApi({
 
         return groups;
       },
+    }),
+
+    getCampus: builder.query({
+      query: () => "/curso/listCampus",
+      providesTags: ["campus"],
     }),
 
     userLogin: builder.mutation({
@@ -45,7 +51,23 @@ export const apiSlice = createApi({
       }),
       providesTags: ["participantes"],
     }),
+
+    getAllNotas: builder.query({
+      query: ({ token }) => ({
+        url: "/restrito/notas",
+        headers: {
+          authorization: token,
+        },
+      }),
+      providesTags: ["notas"],
+    }),
   }),
 });
 
-export const { useGetCursosQuery, useUserLoginMutation, useListaParticipantesQuery } = apiSlice;
+export const {
+  useGetCursosQuery,
+  useGetAllNotasQuery,
+  useGetCampusQuery,
+  useUserLoginMutation,
+  useListaParticipantesQuery,
+} = apiSlice;

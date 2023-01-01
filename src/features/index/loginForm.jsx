@@ -6,7 +6,7 @@ import ReactModal from "react-modal";
 
 import { useLoginParticipanteMutation } from "../../api/participanteApiSlice";
 import "./forms.scss";
-import { loginFinish } from "../participante/participanteSlice";
+import { loginFinish } from "../participante/participanteSlice.ts";
 
 const LoginForm = ({ switchForm }) => {
   const maximumDate = new Date().toISOString().split("T")[0];

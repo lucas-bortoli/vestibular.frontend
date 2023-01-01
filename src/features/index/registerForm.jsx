@@ -7,7 +7,7 @@ import ReactModal from "react-modal";
 import Joi from "joi";
 
 import { useCadastrarParticipanteMutation } from "../../api/participanteApiSlice";
-import { loginFinish } from "../participante/participanteSlice.js";
+import { loginFinish } from "../participante/participanteSlice.ts";
 import { CursosSelect } from "./components/cursosSelect";
 
 import "./forms.scss";

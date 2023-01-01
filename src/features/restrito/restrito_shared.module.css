@@ -14,7 +14,7 @@
   padding: 0.25em;
 }
 
-.dataTable tr {
+.dataTable tbody tr {
   background-color: #f8f8f8;
   cursor: pointer;
 }
@@ -23,7 +23,7 @@
   background-color: #f4f4f4;
 }
 
-.dataTable td:hover {
+.dataTable tbody tr:hover {
   background-color: #ececec;
 }
 
@@ -41,6 +41,20 @@
   --icon-size: 32px;
 }
 
+.iconButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconButton i {
+  margin-right: 8px;
+}
+
 .exportTable {
   background-image: url("../../assets/calc128.svg");
+}
+
+.saveIcon {
+  background-image: url("../../assets/icons/lc_save.svg");
 }

@@ -9,8 +9,11 @@ import RestritoPageBase from "./features/restrito/restrito.jsx";
 import RestritoLoginPage from "./features/restrito/login/login.jsx";
 import RestritoCandidatosPage from "./features/restrito/candidatos/candidatos.jsx";
 import ProvaOnlineSubpage from "./features/participante/online/provaOnline.jsx";
-import RestritoNotasPage from "./features/restrito/notas/notas.jsx";
+import RestritoNotasPage from "./features/restrito/notas/notas";
 
+/**
+ * Faz o roteamento das páginas da aplicação com o React-Router
+ */
 export const AppRouting = () => {
   return (
     <HashRouter>

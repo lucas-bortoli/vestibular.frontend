@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // import { apiClient } from "../../../api/client.js";
 // import { useListarCursosQuery } from "../../../api/curso.js";
-import { useGetCursosQuery } from "../../../api/apiSlice.js";
+import { useGetCursosQuery } from "../../../api/apiSlice.ts";
 
 /**
  * Retorna um <select> com todos os cursos cadastrados no sistema, categorizados pelos seus campus.

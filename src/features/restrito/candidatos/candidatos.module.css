@@ -1,13 +1,3 @@
-.exportExcelButton {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.exportExcelButton i {
-  margin-right: 8px;
-}
-
 .actionButtons {
   display: flex;
   flex-direction: row;

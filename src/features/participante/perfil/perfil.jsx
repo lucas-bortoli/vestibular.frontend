@@ -1,7 +1,7 @@
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetCursosQuery } from "../../../api/apiSlice";
+import { useGetCursosQuery } from "../../../api/apiSlice.ts";
 import { format } from "../../../utils";
 import "./perfil.scss";
 
@@ -24,7 +24,7 @@ const ParticipantePerfilPage = () => {
         </span>
       </div>
       <div className="perfilInfo">
-        <span className="info">Documento</span>
+        <span className="info">Documento — CPF</span>
         <span className="value">{cpfValidator.format(dadosParticipante.cpf)}</span>
       </div>
       <div className="perfilInfo">

@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, NavLink, useLocation } from "react-router-dom";
+import { logout } from "./restritoSlice";
 
 const RestritoPageBase = () => {
   // Receber os parâmetros da url pelo React Router
@@ -8,6 +9,7 @@ const RestritoPageBase = () => {
   const location = useLocation();
 
   const nomeUsuario = useSelector((state) => state.restrito.auth.nameOfUser);
+  const dispatch = useDispatch();
 
   return (
     <div className="indexPage">
@@ -30,7 +32,7 @@ const RestritoPageBase = () => {
               className={`link icon prova ${({ isActive }) => isActive ?? "active"}`}>
               Lançamento de notas
             </NavLink>
-            <Link to="/" className="link icon logout">
+            <Link to="/" onClick={() => dispatch(logout())} className="link icon logout">
               Sair
             </Link>
           </div>

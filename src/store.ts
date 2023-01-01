@@ -1,13 +1,12 @@
-/**
- * store.js: a Redux Store do app.
- */
-
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
 import { participanteApiSlice } from "./api/participanteApiSlice";
 import { participanteReducer } from "./features/participante/participanteSlice";
 import { restritoReducer } from "./features/restrito/restritoSlice";
 
+/**
+ * A Redux Store do app.
+ */
 export const store = configureStore({
   reducer: {
     participante: participanteReducer,
@@ -18,3 +17,5 @@ export const store = configureStore({
   middleware: (defaults) =>
     defaults().concat(apiSlice.middleware).concat(participanteApiSlice.middleware),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
