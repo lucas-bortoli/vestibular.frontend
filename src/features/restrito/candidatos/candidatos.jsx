@@ -1,6 +1,7 @@
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import { useSelector } from "react-redux";
-import { useListaParticipantesQuery, useGetCursosQuery } from "../../../api/apiSlice.ts";
+import { useListaParticipantesQuery } from "../../../api/restrito/slice";
+import { useGetCursosQuery } from "../../../api/apiSlice.ts";
 import { format } from "../../../utils.js";
 import { useAuthentication } from "../authHook";
 

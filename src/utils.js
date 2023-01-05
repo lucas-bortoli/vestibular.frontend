@@ -23,3 +23,18 @@ export const format = (mask, value) => {
 
   return finalString;
 };
+
+export const sleep = (ms) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  })
+}
+
+/**
+ * @param {number} num 
+ * @param {string} singular 
+ * @param {string} plural 
+ */
+export const plural = (num, singular, plural) => {
+  return num === 1 ? singular : plural;
+}

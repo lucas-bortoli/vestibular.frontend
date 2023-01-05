@@ -8,7 +8,7 @@ import ParticipantePerfilPage from "./features/participante/perfil/perfil.jsx";
 import RestritoPageBase from "./features/restrito/restrito.jsx";
 import RestritoLoginPage from "./features/restrito/login/login.jsx";
 import RestritoCandidatosPage from "./features/restrito/candidatos/candidatos.jsx";
-import ProvaOnlineSubpage from "./features/participante/online/provaOnline.jsx";
+import ProvaOnlineSubpage from "./features/participante/online/provaOnline";
 import RestritoNotasPage from "./features/restrito/notas/notas";
 
 /**

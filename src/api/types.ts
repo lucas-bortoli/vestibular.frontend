@@ -67,3 +67,53 @@ export interface CursoCampusJoin {
   campusId: number;
   campusNome: string;
 }
+
+/**
+ * Representa uma redação.
+ */
+export interface RedacaoModel {
+  /**
+   * O participante a quem essas redação pertence
+   */
+  participanteId: number;
+
+  /**
+   * O corpo dessa redação
+   */
+  corpo: string;
+
+  /**
+   * O timestamp em que a redação começou a ser escrita
+   */
+  inicioTimestamp: number;
+
+  /**
+   * O timestamp em que a redação foi finalizada
+   */
+  fimTimestamp: number;
+
+  /**
+   * Quanto tempo ainda resta na redação, para ser entrege
+   */
+  tempoRestante: number;
+
+  /**
+   * Indica se a redação está concluída, o sistema não deve aceitar atualizações se estiver
+   */
+  concluido: boolean;
+}
+
+/**
+ * Representa as notas lançadas para dado participante.
+ */
+export interface NotasModel {
+  /**
+   * O participante a quem essas notas partencem.
+   */
+  participanteId: number;
+
+  /**
+   * Um vetor de notas, de 0 a 10.
+   */
+  notas: number[];
+}

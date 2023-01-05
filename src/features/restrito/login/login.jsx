@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { useUserLoginMutation } from "../../../api/apiSlice.ts";
+import { useUserLoginMutation } from "../../../api/restrito/slice";
 
 import styles from "./login.module.css";
 import { loginFinish } from "../restritoSlice";

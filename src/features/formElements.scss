@@ -17,6 +17,11 @@ select {
   appearance: none;
   position: relative;
   transition: background-color 50ms ease-in;
+  
+  &::selection {
+    color: white;
+    background: #212121;
+  }
 
   &:not(:disabled):hover {
     background-color: #f0f0f0;
@@ -81,4 +86,30 @@ button.primary {
   label {
     font-size: 0.8rem;
   }
+}
+
+.iconButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.iconButton i {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  background-size: 16px;
+  background-repeat: no-repeat;
+}
+
+.iconButton.light i {
+  filter: invert(1);
+}
+
+.iconButton i.document {
+  background-image: url("../assets/icons/Document.svg");
+}
+
+.iconButton i.sendTest {
+  background-image: url("../assets/icons/SendTest.svg");
 }

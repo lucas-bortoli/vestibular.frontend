@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { useListaParticipantesQuery, useGetCursosQuery } from "../../../api/apiSlice";
+import { useListaParticipantesQuery, usePutNotasMutation } from "../../../api/restrito/slice";
+import { useGetCursosQuery } from "../../../api/apiSlice";
 import { RedacaoViewModal } from "./components/redacaoViewModal/redacaoViewModal";
 import { CampusFilterSelect } from "./components/campusFilterSelect";
 import { NotasTable } from "./components/notasTable/notasTable";
 import { useAuthentication } from "../authHook";
 import { RootState } from "../../../store";
 
-import sharedStyles from "../restrito_shared.module.css";
 import styles from "./styles.module.css";
 
 const RestritoNotasPage = () => {
   const userToken = useSelector((state: RootState) => state.restrito.auth.token);
-  
+
   const participantesQuery = useListaParticipantesQuery({ token: userToken });
   const cursos = useGetCursosQuery();
 
   const [participantesVisiveis, setParticipantesVisiveis] = useState([]);
   const [redacaoViewOpen, setRedacaoViewOpen] = useState(false);
+  const [redacaoViewParticipanteId, setRedacaoViewParticipanteId] = useState(-1);
   const [campusIdFiltro, setCampusIdFiltro] = useState(-1);
   const [modalidadeFiltro, setModalidadeFiltro] = useState(-1);
 
@@ -26,7 +27,12 @@ const RestritoNotasPage = () => {
    * Chamado quando uma linha na tabela de notas é clicada.
    */
   const handleTableClick = (participanteId: number) => {
-    setRedacaoViewOpen(true);
+    const participante = participantesQuery.data.find((p) => p.id === participanteId);
+
+    if (participante && participante.provaOnline) {
+      setRedacaoViewOpen(true);
+      setRedacaoViewParticipanteId(participanteId);
+    }
   };
 
   useEffect(() => {
@@ -58,30 +64,36 @@ const RestritoNotasPage = () => {
   }, [modalidadeFiltro, campusIdFiltro]);
 
   return (
-    useAuthentication() && <div>
-      <h2>Lançamento de notas</h2>
-      <p>Clique em um candidato para visualizar sua redação.</p>
-      <div className={styles.actionBar}>
-        <CampusFilterSelect onChange={(campusId) => setCampusIdFiltro(campusId)} />
-        <select
-          style={{ marginLeft: "0.5rem" }}
-          onChange={(ev) => setModalidadeFiltro(parseInt(ev.target.value))}>
-          <option value={-1}>Todas as modalidades</option>
-          <option value={0}>Provas online</option>
-          <option value={1}>Provas presenciais</option>
-        </select>
-        <span className={styles.actionBarSpacer}></span>
-        <button className={sharedStyles.iconButton}>
-          <i className={[sharedStyles.icon, sharedStyles.saveIcon].join(" ")}></i>
-          Salvar notas
-        </button>
+    useAuthentication() && (
+      <div>
+        <h2>Lançamento de notas</h2>
+        <p>Clique em um candidato para visualizar sua redação.</p>
+        <div className={styles.actionBar}>
+          <CampusFilterSelect onChange={(campusId) => setCampusIdFiltro(campusId)} />
+          <select
+            style={{ marginLeft: "0.5rem" }}
+            onChange={(ev) => setModalidadeFiltro(parseInt(ev.target.value))}>
+            <option value={-1}>Todas as modalidades</option>
+            <option value={0}>Provas online</option>
+            <option value={1}>Provas presenciais</option>
+          </select>
+          <span className={styles.actionBarSpacer}></span>
+        </div>
+        <NotasTable
+          participantes={participantesVisiveis}
+          handleTableClick={(p) => handleTableClick(p)}
+        />
+        {redacaoViewParticipanteId > -1 && redacaoViewOpen && (
+          <RedacaoViewModal
+            isOpen={redacaoViewOpen}
+            onRequestClose={() => {
+              setRedacaoViewOpen(false);
+            }}
+            participanteId={redacaoViewParticipanteId}
+          />
+        )}
       </div>
-      <NotasTable
-        participantes={participantesVisiveis}
-        handleTableClick={(p) => handleTableClick(p)}
-      />
-      <RedacaoViewModal isOpen={redacaoViewOpen} onRequestClose={() => setRedacaoViewOpen(false)} />
-    </div>
+    )
   );
 };
 

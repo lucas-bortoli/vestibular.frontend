@@ -1,5 +1,5 @@
 .dataTable {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   border-collapse: collapse;
   width: 100%;
 }
@@ -11,7 +11,6 @@
 
 .dataTable td {
   text-align: left;
-  padding: 0.25em;
 }
 
 .dataTable tbody tr {
@@ -25,6 +24,32 @@
 
 .dataTable tbody tr:hover {
   background-color: #ececec;
+}
+
+.dataTableSelecionado {
+  background-color: rgb(202, 212, 245) !important;
+}
+
+.dataTable input {
+  border-radius: 0;
+  padding: 0.2em 0.4em;
+  border: 2px solid transparent;
+}
+
+.dataTable input:focus {
+  border: 2px solid black;
+}
+
+.dataTable input[type="number"] {
+  text-align: right;
+  width: 60px;
+  -moz-appearance: textfield;
+}
+
+.dataTable input[type="number"]::-webkit-outer-spin-button,
+.dataTable input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .icon {

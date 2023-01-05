@@ -64,10 +64,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const {
-  useGetCursosQuery,
-  useGetAllNotasQuery,
-  useGetCampusQuery,
-  useUserLoginMutation,
-  useListaParticipantesQuery,
-} = apiSlice;
+export const { useGetCursosQuery, useGetCampusQuery } = apiSlice;

@@ -1,0 +1,18 @@
+.dirtyNota {
+  color: rgba(255, 0, 0, 0.6);
+}
+
+.discardBar {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.discardBar button {
+  margin-left: 0.5rem;
+}
+
+.discardBarSpacer {
+  flex-grow: 1;
+}
