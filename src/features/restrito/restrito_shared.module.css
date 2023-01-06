@@ -52,6 +52,17 @@
   margin: 0;
 }
 
+.actionBar {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.actionBarSpacer {
+  flex-grow: 1;
+}
+
 .icon {
   --icon-size: 16px;
   display: inline-block;

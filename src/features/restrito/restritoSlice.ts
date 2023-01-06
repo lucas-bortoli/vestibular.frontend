@@ -19,9 +19,12 @@ interface RestritoState {
   };
 }
 
+const storedAuthState = JSON.parse(localStorage.getItem("authState"));
+const storedIsLoggedInState = JSON.parse(localStorage.getItem("authIsLoggedIn"));
+
 const initialState: RestritoState = {
-  isLoggedIn: false,
-  auth: {
+  isLoggedIn: storedIsLoggedInState ?? false,
+  auth: storedAuthState ?? {
     userId: -1,
     token: null,
     roles: [],

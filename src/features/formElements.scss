@@ -55,7 +55,7 @@ input[type="date"] {
 }
 
 button {
-  padding: 8px 12px;
+  padding: 0.6em 1em;
   border-radius: 4px;
   font-family: inherit;
   border: none;
@@ -76,6 +76,12 @@ button:active {
 button.primary {
   background-color: #403f82;
   color: white;
+}
+
+button:disabled {
+  filter: contrast(0.7) saturate(0.5) !important;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 .field {

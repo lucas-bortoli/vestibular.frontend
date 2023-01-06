@@ -27,6 +27,10 @@
   &.logout::before {
     background-image: url("../../assets/icons/arrowBack_light.svg");
   }
+
+  &.config::before {
+    background-image: url("../../assets/icons/Settings_light.svg");
+  }
 }
 
 .logout {

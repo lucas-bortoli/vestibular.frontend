@@ -24,3 +24,11 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
+// Salvar informações de login no localStorage
+store.subscribe(() => {
+  const state = store.getState();
+
+  localStorage.setItem("authIsLoggedIn", JSON.stringify(state.restrito.isLoggedIn));
+  localStorage.setItem("authState", JSON.stringify(state.restrito.auth));
+});

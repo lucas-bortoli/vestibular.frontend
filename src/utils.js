@@ -38,3 +38,19 @@ export const sleep = (ms) => {
 export const plural = (num, singular, plural) => {
   return num === 1 ? singular : plural;
 }
+
+/**
+ * Retorna uma timestamp no formato YYYY-MM-DD
+ * @param {string|number|Date} time 
+ */
+export const timestampToDate = (time) => {
+  return new Date(time).toISOString().slice(0, 10);
+}
+
+/**
+ * Retorna uma timestamp no formato YYYY-MM-DD
+ * @param {string|number|Date} time 
+ */
+export const timestampToTime = (time) => {
+  return new Date(time).toISOString().slice(11, -8);
+}

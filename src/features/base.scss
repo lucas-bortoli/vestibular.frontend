@@ -202,6 +202,20 @@ h2 {
   height: 100%;
 }
 
+.indexPage.restritoPage {
+  .firstPane {
+    background-color: rgb(21, 21, 21);
+
+    a {
+      background-color: rgb(21, 21, 21);
+    }
+
+    a.active {
+      background-color: rgb(48, 48, 48);
+    }
+  }
+}
+
 .socialMediaLinks {
   @include flex(row);
   justify-content: center;

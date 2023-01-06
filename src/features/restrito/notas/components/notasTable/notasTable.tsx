@@ -151,23 +151,6 @@ export const NotasTable = ({ participantes, handleTableClick }: Props) => {
 
   return (
     <>
-      {dirtyNotasLength > 0 && (
-        <div className={styles.discardBar}>
-          <strong className={styles.dirtyNota}>
-            {plural(
-              dirtyNotasLength,
-              "Uma nota ainda não foi salva.",
-              dirtyNotasLength + " notas ainda não foram salvas."
-            )}
-          </strong>
-          <span className={styles.discardBarSpacer}></span>
-          <button onClick={() => clearEdits()}>Descartar alterações</button>
-          <button className={sharedStyles.iconButton + " primary"} onClick={() => saveNotas()}>
-            <i className={[sharedStyles.icon, sharedStyles.saveIcon].join(" ")}></i>
-            Salvar notas
-          </button>
-        </div>
-      )}
       <table className={sharedStyles.dataTable} ref={tableRef}>
         <thead>
           <tr>
@@ -264,7 +247,28 @@ export const NotasTable = ({ participantes, handleTableClick }: Props) => {
             })}
         </tbody>
       </table>
-
+      <div className={styles.discardBar}>
+        {dirtyNotasLength > 0 && (
+          <strong className={styles.dirtyNota}>
+            {plural(
+              dirtyNotasLength,
+              "Uma nota ainda não foi salva.",
+              dirtyNotasLength + " notas ainda não foram salvas."
+            )}
+          </strong>
+        )}
+        <span className={styles.discardBarSpacer}></span>
+        <button onClick={() => clearEdits()} disabled={dirtyNotasLength === 0}>
+          Descartar mudanças
+        </button>
+        <button
+          disabled={dirtyNotasLength === 0}
+          className={sharedStyles.iconButton + " primary"}
+          onClick={() => saveNotas()}>
+          <i className={[sharedStyles.icon, sharedStyles.saveIcon].join(" ")}></i>
+          Salvar notas
+        </button>
+      </div>
       <ReactModal isOpen={apiSaveNotasStatus.isLoading} className="appModal" ariaHideApp={false}>
         <div className="modal-content">
           <h2>Aguarde...</h2>

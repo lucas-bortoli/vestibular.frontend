@@ -1,0 +1,19 @@
+.field p,
+.field h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.field {
+  margin-top: 2rem;
+}
+
+.dateTimeRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dateTimeRow *:not(:first-child) {
+  margin-left: 0.5rem;
+}

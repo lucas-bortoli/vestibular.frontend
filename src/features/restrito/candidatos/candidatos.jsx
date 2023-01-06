@@ -28,12 +28,14 @@ const RestritoCandidatosPage = () => {
     useAuthentication() && (
       <div>
         <h2>Candidatos</h2>
-        <div className={styles.actionButtons}>
-          <button className={SharedStyles.iconButton}>
-            <i className={[SharedStyles.icon, SharedStyles.exportTable].join(" ")}></i>
-            Salvar como planilha Excel...
-          </button>
-        </div>
+        {false && (
+          <div className={styles.actionButtons}>
+            <button className={SharedStyles.iconButton}>
+              <i className={[SharedStyles.icon, SharedStyles.exportTable].join(" ")}></i>
+              Salvar como planilha Excel...
+            </button>
+          </div>
+        )}
         <table className={SharedStyles.dataTable}>
           <thead>
             <tr>

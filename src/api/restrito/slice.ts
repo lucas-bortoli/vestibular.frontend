@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 import baseUrl from "../baseUrl.js";
-import { NotasModel, ParticipanteModel, RedacaoModel } from "../types.js";
+import {
+  NotasModel,
+  ParticipanteModel,
+  ProcessoSeletivoConfigPartial,
+  RedacaoModel,
+} from "../types.js";
 
 interface RestritoAuth {
   /**
@@ -21,7 +26,7 @@ interface PutNotasArgs {
 export const restritoApiSlice = createApi({
   reducerPath: "restritoApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ["auth", "notas", "notasObject", "participantes"],
+  tagTypes: ["auth", "notas", "notasObject", "participantes", "config"],
   endpoints: (builder) => ({
     userLogin: builder.mutation({
       query: ({ username, password }) => ({
@@ -29,7 +34,7 @@ export const restritoApiSlice = createApi({
         url: "/restrito/login",
         body: { username, password },
       }),
-      invalidatesTags: ["auth", "participantes"],
+      invalidatesTags: ["auth", "notas", "notasObject", "participantes", "config"],
     }),
 
     listaParticipantes: builder.query<ParticipanteModel[], RestritoAuth>({
@@ -114,6 +119,19 @@ export const restritoApiSlice = createApi({
         },
       }),
     }),
+
+    /**
+     * Retorna as configurações do processo seletivo atual.
+     */
+    getConfig: builder.query<ProcessoSeletivoConfigPartial, RestritoAuth>({
+      query: ({ token }) => ({
+        url: "/restrito/config",
+        headers: {
+          authorization: token,
+        },
+      }),
+      providesTags: ["config"],
+    }),
   }),
 });
 
@@ -125,4 +143,5 @@ export const {
   useListaParticipantesQuery,
   usePutNotasMutation,
   useUserLoginMutation,
+  useGetConfigQuery,
 } = restritoApiSlice;

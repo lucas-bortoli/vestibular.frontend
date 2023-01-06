@@ -10,6 +10,7 @@ import RestritoLoginPage from "./features/restrito/login/login.jsx";
 import RestritoCandidatosPage from "./features/restrito/candidatos/candidatos.jsx";
 import ProvaOnlineSubpage from "./features/participante/online/provaOnline";
 import RestritoNotasPage from "./features/restrito/notas/notas";
+import RestritoConfigPage from "./features/restrito/config/configPage";
 
 /**
  * Faz o roteamento das páginas da aplicação com o React-Router
@@ -28,6 +29,7 @@ export const AppRouting = () => {
             <Route path="login" element={<RestritoLoginPage />} />
             <Route path="candidatos" element={<RestritoCandidatosPage />} />
             <Route path="notas" element={<RestritoNotasPage />} />
+            <Route path="config" element={<RestritoConfigPage />} />
           </Route>
         </Route>
       </Routes>

@@ -12,7 +12,7 @@ const RestritoPageBase = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="indexPage">
+    <div className="indexPage restritoPage">
       {!location.pathname.endsWith("/login") ? (
         <div className="pane firstPane">
           <div className="header">
@@ -25,12 +25,17 @@ const RestritoPageBase = () => {
             <NavLink
               to="/restrito/candidatos"
               className={`link icon info ${({ isActive }) => isActive ?? "active"}`}>
-              Relação de candidatos
+              Lista de candidatos
             </NavLink>
             <NavLink
               to="/restrito/notas"
               className={`link icon prova ${({ isActive }) => isActive ?? "active"}`}>
               Lançamento de notas
+            </NavLink>
+            <NavLink
+              to="/restrito/config"
+              className={`link icon config ${({ isActive }) => isActive ?? "active"}`}>
+              Dados do processo seletivo
             </NavLink>
             <Link to="/" onClick={() => dispatch(logout())} className="link icon logout">
               Sair

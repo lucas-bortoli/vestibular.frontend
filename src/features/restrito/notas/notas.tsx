@@ -9,7 +9,7 @@ import { NotasTable } from "./components/notasTable/notasTable";
 import { useAuthentication } from "../authHook";
 import { RootState } from "../../../store";
 
-import styles from "./styles.module.css";
+import sharedStyles from "../restrito_shared.module.css";
 
 const RestritoNotasPage = () => {
   const userToken = useSelector((state: RootState) => state.restrito.auth.token);
@@ -61,14 +61,14 @@ const RestritoNotasPage = () => {
     });
 
     setParticipantesVisiveis(participantes);
-  }, [modalidadeFiltro, campusIdFiltro]);
+  }, [modalidadeFiltro, campusIdFiltro, participantesQuery.isSuccess, cursos.isSuccess]);
 
   return (
     useAuthentication() && (
       <div>
         <h2>Lançamento de notas</h2>
         <p>Clique em um candidato para visualizar sua redação.</p>
-        <div className={styles.actionBar}>
+        <div className={sharedStyles.actionBar}>
           <CampusFilterSelect onChange={(campusId) => setCampusIdFiltro(campusId)} />
           <select
             style={{ marginLeft: "0.5rem" }}
@@ -77,8 +77,9 @@ const RestritoNotasPage = () => {
             <option value={0}>Provas online</option>
             <option value={1}>Provas presenciais</option>
           </select>
-          <span className={styles.actionBarSpacer}></span>
+          <span className={sharedStyles.actionBarSpacer}></span>
         </div>
+        <br />
         <NotasTable
           participantes={participantesVisiveis}
           handleTableClick={(p) => handleTableClick(p)}
