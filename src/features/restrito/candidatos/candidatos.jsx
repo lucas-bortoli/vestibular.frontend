@@ -2,7 +2,7 @@ import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import { useSelector } from "react-redux";
 import { useListaParticipantesQuery } from "../../../api/restrito/slice";
 import { useGetCursosQuery } from "../../../api/apiSlice.ts";
-import { format } from "../../../utils.js";
+import { format } from "../../../utils.ts";
 import { useAuthentication } from "../authHook";
 
 import SharedStyles from "../restrito_shared.module.css";

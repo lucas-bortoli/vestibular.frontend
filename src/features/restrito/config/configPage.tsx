@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { timestampToDate, timestampToTime } from "../../../utils";
-import { useGetConfigQuery } from "../../../api/restrito/slice";
+import { usePutConfigMutation } from "../../../api/restrito/slice";
 import { RootState } from "../../../store";
 import { useAuthentication } from "../authHook";
-import FileInput from "./components/FileInput";
 
 import sharedStyle from "../restrito_shared.module.css";
 import style from "./style.module.css";
+import { useGetConfigQuery } from "../../../api/apiSlice";
 
 const RestritoConfigPage = () => {
   const token = useSelector((state: RootState) => state.restrito.auth.token);
-  const configQuery = useGetConfigQuery({ token });
+  const configQuery = useGetConfigQuery();
+  const [doConfigMutation, configMutationStatus] = usePutConfigMutation();
 
   const [inicioDate, setInicioDate] = useState(timestampToDate(Date.now()) as string);
   const [inicioTime, setInicioTime] = useState(timestampToTime(Date.now()) as string);
@@ -44,15 +45,31 @@ const RestritoConfigPage = () => {
     console.log(inicio);
     console.log(fim);
     console.log("");
+
+    // Atualizar configuração no servidor
+    doConfigMutation({
+      token,
+      processoSeletivoInicioUnix: inicio.valueOf(),
+      processoSeletivoFimUnix: fim.valueOf(),
+      redacaoTempo: redacaoTempo * 60 * 1000,
+    })
+      .unwrap()
+      .then(() => {
+        setDirty(false);
+        configQuery.refetch();
+      });
   };
 
   useEffect(() => {
     if (configQuery.isSuccess) {
-      setInicioDate(timestampToDate(configQuery.data.processoSeletivoInicioUnix));
-      setInicioTime(timestampToTime(configQuery.data.processoSeletivoInicioUnix));
-      setFimDate(timestampToDate(configQuery.data.processoSeletivoFimUnix));
-      setFimTime(timestampToTime(configQuery.data.processoSeletivoFimUnix));
-      setRedacaoTempo(Math.floor(configQuery.data.redacaoTempo / 1000));
+      const inicio = new Date(configQuery.data.processoSeletivoInicioUnix);
+      const fim = new Date(configQuery.data.processoSeletivoFimUnix);
+
+      setInicioDate(timestampToDate(inicio));
+      setInicioTime(timestampToTime(inicio));
+      setFimDate(timestampToDate(fim));
+      setFimTime(timestampToTime(fim));
+      setRedacaoTempo(Math.floor(configQuery.data.redacaoTempo / 60 / 1000));
       setDirty(false);
     }
   }, [configQuery.isSuccess, reset]);
@@ -116,47 +133,19 @@ const RestritoConfigPage = () => {
           />{" "}
           minutos
         </div>
-        <div className={style.field}>
-          <h4>Informações gerais sobre o processo seletivo (HTML)</h4>
-          <p>
-            Mostrado na tela inicial da aplicação, ao lado dos formulários de registro e login de
-            participantes.
-          </p>
-          <p>
-            <strong>Dica</strong>: É possível usar o Microsoft Word para a escrita desse arquivo,
-            basta exportar o documento no formato <strong>.html</strong>.
-          </p>
-          <FileInput allowedExtensions={["html"]} />
-        </div>
-        <div className={style.field}>
-          <h4>Edital do processo seletivo (PDF)</h4>
-          <p>
-            Mostrado na tela inicial da aplicação, embaixo do painel de
-            <em> Informações gerais sobre o processo seletivo</em>.
-          </p>
-          <FileInput allowedExtensions={["pdf"]} />
-        </div>
-        <div className={style.field}>
-          <h4>Edital da redação (PDF)</h4>
-          <p>
-            Disponibilizado para os candidatos quando iniciam a redação online. Deve conter
-            informações sobre o tema do texto e outras instruções relevantes.
-          </p>
-          <FileInput allowedExtensions={["pdf"]} />
-        </div>
         <div className={sharedStyle.actionBar}>
           {dirty && <span>Há configurações não salvas!</span>}
           <span className={sharedStyle.actionBarSpacer}></span>
           <button
             style={{ marginRight: "0.5rem" }}
             onClick={() => setReset(reset + 1)}
-            disabled={!dirty}>
+            disabled={configMutationStatus.isLoading || configQuery.isFetching || !dirty}>
             Descartar mudanças
           </button>
           <button
             className={["primary", sharedStyle.iconButton].join(" ")}
             onClick={() => saveConfig()}
-            disabled={!dirty}>
+            disabled={configMutationStatus.isLoading || configQuery.isFetching || !dirty}>
             <i className={[sharedStyle.icon, sharedStyle.saveIcon].join(" ")}></i>
             Salvar configurações
           </button>

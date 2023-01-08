@@ -31,6 +31,10 @@
   &.config::before {
     background-image: url("../../assets/icons/Settings_light.svg");
   }
+
+  &.files::before {
+    background-image: url("../../assets/icons/DocumentViewer_light.svg");
+  }
 }
 
 .logout {

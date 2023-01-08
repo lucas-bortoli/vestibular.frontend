@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import baseUrl from "./baseUrl.js";
-import { CursoCampusJoin } from "./types.js";
+import { AttachmentOpaqueModel, CursoCampusJoin, ProcessoSeletivoConfigPartial } from "./types.js";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ["cursos", "campus", "auth", "notas", "participantes"],
+  tagTypes: ["cursos", "campus"],
   endpoints: (builder) => ({
     /**
      * Busca uma lista de cursos.
      */
     getCursos: builder.query<{ [key: string]: CursoCampusJoin[] }, void>({
-      query: () => "/curso/list",
+      query: () => "/processoSeletivo/curso/list",
       providesTags: ["cursos"],
       transformResponse: (response) => {
         const groups = {};
@@ -29,39 +29,33 @@ export const apiSlice = createApi({
     }),
 
     getCampus: builder.query({
-      query: () => "/curso/listCampus",
+      query: () => "/processoSeletivo/campus/list",
       providesTags: ["campus"],
     }),
 
-    userLogin: builder.mutation({
-      query: ({ username, password }) => ({
-        method: "POST",
-        url: "/restrito/login",
-        body: { username, password },
+    /**
+     * Retorna os metadados de um attachment.
+     */
+    getAttachmentOpaque: builder.query<AttachmentOpaqueModel, { id: string }>({
+      query: ({ id }) => ({
+        url: "/attachments/opaque/" + id,
       }),
-      invalidatesTags: ["auth", "participantes"],
     }),
 
-    listaParticipantes: builder.query({
-      query: ({ token }) => ({
-        url: "/restrito/participantes",
-        headers: {
-          authorization: token,
-        },
+    /**
+     * Retorna as configurações do processo seletivo atual.
+     */
+    getConfig: builder.query<ProcessoSeletivoConfigPartial, void>({
+      query: () => ({
+        url: "/processoSeletivo/config",
       }),
-      providesTags: ["participantes"],
-    }),
-
-    getAllNotas: builder.query({
-      query: ({ token }) => ({
-        url: "/restrito/notas",
-        headers: {
-          authorization: token,
-        },
-      }),
-      providesTags: ["notas"],
     }),
   }),
 });
 
-export const { useGetCursosQuery, useGetCampusQuery } = apiSlice;
+export const {
+  useGetCursosQuery,
+  useGetCampusQuery,
+  useGetAttachmentOpaqueQuery,
+  useGetConfigQuery,
+} = apiSlice;

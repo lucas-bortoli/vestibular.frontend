@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-
-// import { apiClient } from "../../../api/client.js";
-// import { useListarCursosQuery } from "../../../api/curso.js";
+import React from "react";
 import { useGetCursosQuery } from "../../../api/apiSlice.ts";
 
 /**

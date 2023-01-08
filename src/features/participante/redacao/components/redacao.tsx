@@ -1,3 +1,5 @@
+import apiBaseUrl from "../../../../api/baseUrl";
+
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useAtualizarRedacaoMutation } from "../../../../api/participanteApiSlice";
@@ -76,7 +78,8 @@ const RedacaoEditor = ({ maxLength, redacaoAtual, onSubmit, tempoTotal }: Props)
   }, []);
 
   const abrirEdital = () => {
-    window.open("/editalRedacao.pdf", "_blank", "width=640,height=720");
+    const url = apiBaseUrl + "/attachments/data/redacao_edital";
+    window.open(url, "_blank", "width=640,height=720");
   };
 
   const sincronizar = async () => {

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import apiBaseUrl from "../../api/baseUrl";
 
 const InformationFrame = () => {
   // Altura do iframe de informações
@@ -24,7 +25,7 @@ const InformationFrame = () => {
 
   return (
     <iframe
-      src="/informacoesVestibular.html"
+      src={apiBaseUrl + "/attachments/data/index"}
       title="informações vestibular"
       sandbox="allow-same-origin"
       onLoad={() => resizeIframe()}

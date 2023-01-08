@@ -31,6 +31,8 @@ const RegisterForm = ({ switchForm }) => {
   const [telefone, setTelefone] = useState("");
   const [modalidade, setModalidade] = useState("");
 
+  const [declaracao, setDeclaracao] = useState(false);
+
   const maximumDate = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
@@ -196,10 +198,14 @@ const RegisterForm = ({ switchForm }) => {
               <option value="online">Online</option>
             </select>
           </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <input type="checkbox" onChange={(e) => setDeclaracao(e.target.checked)} />
+            <label>Ao continuar, declaro que as informações dadas estão corretas.</label>
+          </div>
         </div>
         <div className="modal-footer">
           <button onClick={() => setSecondStageVisible(false)}>Cancelar</button>
-          <button className="primary" onClick={() => submitSegundoEstagio()}>
+          <button className="primary" disabled={!declaracao} onClick={() => submitSegundoEstagio()}>
             Concluir minha inscrição
           </button>
         </div>

@@ -5,7 +5,7 @@
   background-position: center right calc($size / 2);
 }
 
-input,
+input:not([type="checkbox"]),
 select {
   background-color: #fff;
   font-family: inherit;
@@ -54,6 +54,17 @@ input[type="date"] {
   @include inputIcon(url("../assets/icons/calendar.svg"));
 }
 
+input[type="checkbox"] {
+  margin-right: 1rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
 button {
   padding: 0.6em 1em;
   border-radius: 4px;
@@ -79,7 +90,7 @@ button.primary {
 }
 
 button:disabled {
-  filter: contrast(0.7) saturate(0.5) !important;
+  filter: contrast(0.3) !important;
   cursor: not-allowed;
   transform: none !important;
 }

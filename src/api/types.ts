@@ -136,3 +136,11 @@ export interface ProcessoSeletivoConfigPartial {
    */
   redacaoTempo: number;
 }
+
+export interface AttachmentOpaqueModel {
+  id: string;
+  nome: string;
+  tamanho: number;
+  mime: string;
+  modificado: number;
+}

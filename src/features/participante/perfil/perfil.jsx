@@ -25,7 +25,11 @@ const ParticipantePerfilPage = () => {
       </div>
       <div className="perfilInfo">
         <span className="info">Documento — CPF</span>
-        <span className="value">{cpfValidator.format(dadosParticipante.cpf)}</span>
+        <span className="value">
+          {cpfValidator
+            .format(dadosParticipante.cpf)
+            .replace(/\d.\d{3}.\d{3}-\d{1}/, "*.***.***-*")}
+        </span>
       </div>
       <div className="perfilInfo">
         <span className="info">E-mail</span>
@@ -33,7 +37,7 @@ const ParticipantePerfilPage = () => {
       </div>
       <div className="perfilInfo">
         <span className="info">Telefone</span>
-        <span className="value">{format("(dd) ddddd-dddd", dadosParticipante.telefone)}</span>
+        <span className="value">{format("(dd) ddd**-**dd", dadosParticipante.telefone)}</span>
       </div>
       <div className="perfilInfo">
         <span className="info">Curso selecionado</span>

@@ -26,7 +26,7 @@ interface PutNotasArgs {
 export const restritoApiSlice = createApi({
   reducerPath: "restritoApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
-  tagTypes: ["auth", "notas", "notasObject", "participantes", "config"],
+  tagTypes: ["auth", "notas", "notasObject", "participantes"],
   endpoints: (builder) => ({
     userLogin: builder.mutation({
       query: ({ username, password }) => ({
@@ -34,7 +34,7 @@ export const restritoApiSlice = createApi({
         url: "/restrito/login",
         body: { username, password },
       }),
-      invalidatesTags: ["auth", "notas", "notasObject", "participantes", "config"],
+      invalidatesTags: ["auth", "notas", "notasObject", "participantes"],
     }),
 
     listaParticipantes: builder.query<ParticipanteModel[], RestritoAuth>({
@@ -120,17 +120,41 @@ export const restritoApiSlice = createApi({
       }),
     }),
 
-    /**
-     * Retorna as configurações do processo seletivo atual.
-     */
-    getConfig: builder.query<ProcessoSeletivoConfigPartial, RestritoAuth>({
-      query: ({ token }) => ({
-        url: "/restrito/config",
-        headers: {
-          authorization: token,
-        },
-      }),
-      providesTags: ["config"],
+    putConfig: builder.mutation<{ success: boolean }, ProcessoSeletivoConfigPartial & RestritoAuth>(
+      {
+        query: ({ token, processoSeletivoInicioUnix, processoSeletivoFimUnix, redacaoTempo }) => ({
+          method: "PUT",
+          url: "/restrito/config",
+          headers: {
+            authorization: token,
+          },
+          body: {
+            processoSeletivoInicioUnix,
+            processoSeletivoFimUnix,
+            redacaoTempo,
+          },
+        }),
+      }
+    ),
+
+    putAttachment: builder.mutation<
+      { success: boolean },
+      { fileId: string; file: File } & RestritoAuth
+    >({
+      query: ({ token, fileId, file }) => {
+        const form = new FormData();
+
+        form.set("file", file);
+
+        return {
+          method: "PUT",
+          url: "/attachments/" + fileId,
+          headers: {
+            authorization: token,
+          },
+          body: form,
+        };
+      },
     }),
   }),
 });
@@ -143,5 +167,6 @@ export const {
   useListaParticipantesQuery,
   usePutNotasMutation,
   useUserLoginMutation,
-  useGetConfigQuery,
+  usePutConfigMutation,
+  usePutAttachmentMutation,
 } = restritoApiSlice;

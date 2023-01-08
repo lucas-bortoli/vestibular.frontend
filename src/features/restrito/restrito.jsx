@@ -37,6 +37,11 @@ const RestritoPageBase = () => {
               className={`link icon config ${({ isActive }) => isActive ?? "active"}`}>
               Dados do processo seletivo
             </NavLink>
+            <NavLink
+              to="/restrito/arquivos"
+              className={`link icon files ${({ isActive }) => isActive ?? "active"}`}>
+              Arquivos
+            </NavLink>
             <Link to="/" onClick={() => dispatch(logout())} className="link icon logout">
               Sair
             </Link>

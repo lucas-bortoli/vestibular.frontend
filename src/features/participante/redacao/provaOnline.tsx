@@ -1,9 +1,10 @@
+import apiBaseUrl from "../../../api/baseUrl";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Redacao from "./components/redacao";
-
 import {
   useFinalizarRedacaoMutation,
   useIniciarRedacaoMutation,
@@ -11,11 +12,13 @@ import {
 } from "../../../api/participanteApiSlice";
 import { RootState } from "../../../store";
 import { LoadingPage } from "../../components/loadingPage";
+import { useGetConfigQuery } from "../../../api/apiSlice";
+import { msParaHumano } from "../../../utils";
 
 const ProvaOnlineSubpage = () => {
   const navigate = useNavigate();
   const dadosParticipante = useSelector((state: RootState) => state.participante.dados);
-
+  const configQuery = useGetConfigQuery();
   const redacaoAtualQuery = useRedacaoAtualQuery({
     cpf: dadosParticipante.cpf,
     nascimento: dadosParticipante.dataNascimento,
@@ -67,15 +70,51 @@ const ProvaOnlineSubpage = () => {
     }
   };
 
+  const dataHora = (d: number): string => {
+    return new Date(d).toLocaleString("pt-BR");
+  };
+
+  const abrirEdital = () => {
+    const url = apiBaseUrl + "/attachments/data/processo_seletivo_edital";
+    window.open(url, "_blank", "width=640,height=720");
+  };
+
   return (
     <>
       <h2>Prova online</h2>
 
       {/* Se a redação não está iniciada... */}
-      {redacaoAtualQuery.data === null && (
+      {redacaoAtualQuery.data === null && !apiIniciarRedacaoStatus.isError && (
         <>
           <p>Ao iniciar a redação, você terá até duas horas para concluí-la.</p>
-          <div>
+          {configQuery.isSuccess && (
+            <div style={{ marginBottom: "1rem" }}>
+              <p>Horários do processo seletivo:</p>
+              <table>
+                <thead />
+                <tbody>
+                  <tr>
+                    <td style={{ fontWeight: "bold" }}>Início</td>
+                    <td>{dataHora(configQuery.data.processoSeletivoInicioUnix)}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ fontWeight: "bold" }}>Fim</td>
+                    <td>{dataHora(configQuery.data.processoSeletivoFimUnix)}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ paddingRight: "1rem", fontWeight: "bold" }}>
+                      Tempo para a entrega da redação
+                    </td>
+                    <td>{msParaHumano(configQuery.data.redacaoTempo)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button style={{ marginRight: "0.5rem" }} onClick={() => abrirEdital()}>
+              Ver edital
+            </button>
             <button className="primary" onClick={() => iniciarRedacao()}>
               Iniciar redação
             </button>
@@ -104,6 +143,13 @@ const ProvaOnlineSubpage = () => {
             <p>Sua redação está concluída.</p>
           </>
         )}
+
+      {apiIniciarRedacaoStatus.isError && (apiIniciarRedacaoStatus.error as { data }).data && (
+        <>
+          {/* Mostrar mensagem do servidor */}
+          <p>{((apiIniciarRedacaoStatus.error as { data }).data as Error).message}</p>
+        </>
+      )}
     </>
   );
 };
