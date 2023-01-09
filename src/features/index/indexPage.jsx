@@ -18,7 +18,6 @@ const IndexPage = () => {
         )}
       </div>
       <div className="pane secondPane">
-        <h2>Informações</h2>
         <InformationFrame />
         <div className="attachments">
           <a target="_blank" href={apiBaseUrl + "/attachments/data/processo_seletivo_edital"}>
