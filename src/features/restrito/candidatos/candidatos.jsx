@@ -1,3 +1,5 @@
+import apiBaseUrl from "../../../api/baseUrl.js";
+
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import { useSelector } from "react-redux";
 import { useListaParticipantesQuery } from "../../../api/restrito/slice";
@@ -24,18 +26,33 @@ const RestritoCandidatosPage = () => {
     return `${curso.cursoNome} (${curso.campusNome})`;
   };
 
+  /*
+   * Baixa os participantes e as notas como uma planilha Excel.
+   */
+  const exportTable = async () => {
+    console.log(apiBaseUrl, `${apiBaseUrl}/restrito/notas_export/xlsx`);
+    const planilhaBlob = await fetch(`${apiBaseUrl}/restrito/notas_export/xlsx`, {
+      headers: {
+        authorization: userToken,
+      },
+    }).then((r) => r.blob());
+
+    const a = document.createElement("a");
+    a.download = "relação de candidatos.xlsx";
+    a.href = URL.createObjectURL(planilhaBlob);
+    a.click();
+  };
+
   return (
     useAuthentication() && (
       <div>
         <h2>Candidatos</h2>
-        {false && (
-          <div className={styles.actionButtons}>
-            <button className={SharedStyles.iconButton}>
-              <i className={[SharedStyles.icon, SharedStyles.exportTable].join(" ")}></i>
-              Salvar como planilha Excel...
-            </button>
-          </div>
-        )}
+        <div className={styles.actionButtons}>
+          <button className={SharedStyles.iconButton} onClick={exportTable}>
+            <i className={[SharedStyles.icon, SharedStyles.exportTable].join(" ")}></i>
+            Salvar como planilha Excel...
+          </button>
+        </div>
         <table className={SharedStyles.dataTable}>
           <thead>
             <tr>
