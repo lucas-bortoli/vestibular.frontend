@@ -6,8 +6,6 @@ if (DEV) {
   port = 8000;
 }
 
-const baseUrl = `${window["location"].protocol}//${window["location"].hostname}:${
-  8000 || window["location"].port
-}/api`;
+const baseUrl = `${window["location"].protocol}//${window["location"].hostname}:${port}/api`;
 
 export default baseUrl;
